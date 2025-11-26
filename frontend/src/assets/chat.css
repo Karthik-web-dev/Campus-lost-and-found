@@ -1,0 +1,310 @@
+.chat-page {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #121212; /* Dark background */
+            color: #ffffff; /* Light text */
+        }
+        .chat-menu {
+            width: 30%;
+            background-color: #1e1e1e; /* Dark gray */
+            border-right: 1px solid #333;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        .chat-item {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            color: #ffffff;
+        }
+        .chat-item:hover {
+            background-color: #2a2a2a;
+        }
+        .chat-item.active {
+            background-color: #333333;
+        }
+        .chat-interface {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #121212;
+        }
+        .chat-header {
+            padding: 15px;
+            background-color: #bec2be; 
+            color: black;
+            font-weight: bold;
+        }
+        .messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            background-color: #1e1e1e; /* Dark chat background */
+        }
+        .message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 70%;
+            color: #ffffff;
+        }
+        .message.sent {
+            background-color: #333333; /* Dark sent message */
+            margin-left: auto;
+            text-align: right;
+        }
+        .message.received {
+            background-color: #2a2a2a; /* Dark received message */
+        }
+        .timestamp {
+            font-size: 0.8em;
+            color: #aaaaaa; /* Light gray timestamp */
+            margin-top: 5px;
+        }
+        .input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #333;
+            background-color: #1e1e1e;
+            position: relative;
+        }
+        .message-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            outline: none;
+            background-color: #2a2a2a;
+            color: #ffffff;
+        }
+        .send-btn {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background-color: #25d366; /* Green send button */
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .emoji-btn {
+            margin-left: 10px;
+            padding: 10px;
+            background-color: #333333;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #ffffff;
+        }
+        .emoji-picker {
+            position: absolute;
+            bottom: 60px;
+            right: 10px;
+            background-color: #2a2a2a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            width: 320px;
+            max-height: 300px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .emoji-tabs {
+            display: flex;
+            background-color: #333333;
+            border-bottom: 1px solid #555;
+        }
+        .emoji-tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            color: #aaaaaa;
+            transition: color 0.2s;
+        }
+        .emoji-tab:hover {
+            color: #ffffff;
+        }
+        .emoji-tab.active {
+            color: #25d366;
+            border-bottom: 2px solid #25d366;
+        }
+        .emoji-grid {
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 8 emojis per row */
+            gap: 5px;
+            overflow-y: auto;
+            max-height: 250px;
+        }
+        .emoji {
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .emoji:hover {
+            background-color: #444444;
+        }
+        /* Hide all grids by default, show only the active one */
+        .emoji-grid:not(.active) {
+            display: none;
+        }
+/* ... (Your existing CSS remains unchanged) ... */
+
+/* Modal styles */
+.add-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #28a745; /* Green from your CSS */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 30px;
+    color: #000; /* Black text */
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.add-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #000; /* Black */
+    border: 2px solid #28a745; /* Green border */
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    color: #fff; /* White text */
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #28a745; /* Green heading */
+    text-align: center;
+}
+
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-content label {
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #28a745; /* Green border */
+    border-radius: 5px;
+    background-color: #222; /* Dark gray background */
+    color: #fff;
+}
+
+.modal-content select {
+    /* Ensure select looks consistent */
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.modal-content input[type="file"] {
+    /* Style file input to match button width and appearance */
+    padding: 10px;
+    background-color: #28a745; /* Green background */
+    color: #000; /* Black text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 100%; /* Match submit button width */
+    box-sizing: border-box;
+}
+
+.modal-content input[type="file"]:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.modal-content button {
+    padding: 10px;
+    background-color: #28a745; /* Green */
+    color: #000; /* Black text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 100%; /* Full width for consistency */
+    box-sizing: border-box;
+}
+
+.modal-content button:hover {
+    background-color: #218838; /* Darker green */
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(40, 167, 69, 0.2); /* Semi-transparent green background for visibility */
+    border: 1px solid #28a745; /* Green border */
+    border-radius: 50%; /* Circular for better look */
+    width: 30px; /* Fixed size */
+    height: 30px; /* Fixed size */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px; /* Slightly smaller for fit */
+    color: #28a745; /* Green text */
+    cursor: pointer;
+    z-index: 10; /* Ensure it's above other content */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.close-button:hover {
+    background-color: #28a745; /* Solid green on hover */
+    color: #000; /* Black text on hover */
+}
+
+form > p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    font-weight: 0;
+    font-size: smaller;
+}

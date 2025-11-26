@@ -1,0 +1,183 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family:"Hanken Grotesk", Arial, sans-serif;
+    font-size: large;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.app-container {
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    padding: 20px;
+    width: 100hv;
+    background-color: #28a745;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 100px;
+    flex-direction: row;
+    font-weight: 600;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.options {
+    border-radius: 25px;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auth-options > li{
+    padding:10px;
+}
+
+.signup {
+    background-color: #bec2be;
+    border-radius: 10px;
+}
+
+li{
+    gap: 20px;
+}
+
+.icon {
+    font-size: larger;
+    margin-right: 10px;
+}
+
+main {
+    height: max-content;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 5px;
+    border-color: aliceblue;
+    flex: 1;
+}
+/*                                                  SIGN IN PAGE                                                   */
+.signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+}
+
+.auth-form {
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column  ;
+}
+
+.auth-form > form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form > form > label > input {
+    border: none;
+    padding: 10px 15px;
+    background-color: #121212;
+    /* margin-left: 30px; */
+    /* border-bottom: 1px solid white; */
+    color: white;
+    border: 1px solid white;
+    border-radius: 15px;
+}
+
+.auth-form > form > label {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+}
+
+.auth-form > form > button {
+    padding: 10px 15px;
+    font-size: large;
+    background-color: #28a745;
+    color: black;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.auth-form > p > a {
+    color: #28a745;
+    border-bottom: 1px solid #bec2be;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+
+
+
+/*                                                         LOST&FOUND Pages                                                      */
+.item-page {
+  margin: 0;
+  padding: 0;
+  color: white;
+  background-color: #121212;
+}
+
+.item-page > h1 {
+  /* font-family: 'Inter'; */
+  margin-left: 30px;
+  margin-top: 50px;
+}
+
+.item-page > ul {
+  list-style: none;
+  font-size: large;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  gap: 30px;
+  margin: 30px;
+  padding: 0;
+}
+
+.item-page > ul > li {
+  color: #4D4D4D;
+  padding: 10px 15px;
+  border-radius: 7px;
+  background-color: #FFEAD0;
+}
+
+.item-page > ul > p {
+  border-bottom: 1px solid black;
+  cursor: pointer;
+}
+
+.item-list {
+  display: flex;
+  margin: 30px;
+  /* flex-direction: column; */
+  flex-wrap: wrap;
+  /* max-width: fit-content; */
+  justify-content: space-between;
+  gap: 20px;
+}

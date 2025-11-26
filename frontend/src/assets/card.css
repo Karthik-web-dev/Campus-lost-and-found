@@ -1,0 +1,202 @@
+/* ... (Your existing CSS remains unchanged) ... */
+
+/* Modal styles */
+.add-button {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #28a745; /* Green from your CSS */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 30px;
+    color: #000; /* Black text */
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.add-button:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Black overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-form-content { /* Renamed from .modal-content to avoid any potential confusion */
+    background-color: #000; /* Black */
+    border: 2px solid #28a745; /* Green border */
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    color: #fff; /* White text */
+}
+
+.modal-form-content h2 {
+    margin-top: 0;
+    color: #28a745; /* Green heading */
+    text-align: center;
+}
+
+.modal-form-content form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-form-content label {
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.modal-form-content input,
+.modal-form-content textarea,
+.modal-form-content select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #28a745; /* Green border */
+    border-radius: 5px;
+    background-color: #222; /* Dark gray background */
+    color: #fff;
+}
+
+.modal-form-content select {
+    /* Ensure select looks consistent */
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.modal-form-content input[type="file"] {
+    /* Style file input to match button width and appearance */
+    padding: 10px;
+    background-color: #28a745; /* Green background */
+    color: #000; /* Black text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 100%; /* Match submit button width */
+    box-sizing: border-box;
+}
+
+.modal-form-content input[type="file"]:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.modal-form-content button {
+    padding: 10px;
+    background-color: #28a745; /* Green */
+    color: #000; /* Black text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    width: 100%; /* Full width for consistency */
+    box-sizing: border-box;
+}
+
+.modal-form-content button:hover {
+    background-color: #218838; /* Darker green */
+}
+
+/* Card styles */
+.item-card {
+    background-color: #1a1a1a; /* Dark background for card */
+    border: 1px solid #28a745; /* Green border */
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.image-slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-image {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(40, 167, 69, 0.8); /* Semi-transparent green */
+    color: #000;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1;
+    transition: background-color 0.3s;
+}
+
+.slider-btn:hover {
+    background-color: #28a745; /* Solid green on hover */
+}
+
+.slider-btn.prev {
+    left: 10px;
+}
+
+.slider-btn.next {
+    right: 10px;
+}
+
+.card-details {
+    color: #fff;
+}
+
+.card-details h3 {
+    color: #28a745; /* Green title */
+    margin-bottom: 10px;
+}
+
+.card-details p {
+    margin: 5px 0;
+}
+
+.contact-btn {
+    padding: 8px 15px;
+    background-color: #28a745; /* Green */
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    align-self: flex-start;
+}
+
+.contact-btn:hover {
+    background-color: #218838; /* Darker green */
+}
