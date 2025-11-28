@@ -1,9 +1,10 @@
 import React from "react";
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
 export default function Signup() {
   const [password, setPassword] = React.useState("");
   const [confirmPass, setConfirmPass] = React.useState("");
+  const navigate = useNavigate()
   const [form, setForm] = React.useState({
     email:"",
     prn:"",
@@ -30,7 +31,6 @@ const handleChange = (e) => {
     ...form,
     [e.target.name]: e.target.value
   });
-  console.log(form)
 };
 
 
@@ -52,7 +52,7 @@ const handleChange = (e) => {
     .then(res => res.json())
     .then(data => console.log(data))
     .catch(err => console.error(err))
-
+    navigate('/login')
     setForm({
     email:"",
     prn:"",

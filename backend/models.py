@@ -15,6 +15,7 @@ class Posts(db.Model):
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=False)
     image_url = db.Column(db.String(255))
+    category = db.Column(db.String(15), nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(IST), nullable=False)
 
@@ -23,11 +24,12 @@ class Posts(db.Model):
             "title":self.title,
             "description":self.description,
             "type":self.type,
+            "category":self.category,
             "location":self.location,
-            "date":self.date,
+            "date":self.date.isoformat(),
             "time":str(self.time),
             "image_url":self.image_url,
-            "created_at":self.created_at,
+            "created_at":self.created_at.isoformat(),
             "id":self.id,
             "user_id":self.user_id
         }
@@ -41,6 +43,16 @@ class Cred(db.Model):
     prn = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(50))
     division = db.Column(db.String(10))
+
+    def to_dict(self):
+        data = {
+            "id":self.id,
+            "email":self.email,
+            "prn":self.prn,
+            "name":self.name,
+            "division":self.division
+        }
+        return data
 
 class Conversations(db.Model):
     __tablename__ = "conversations"

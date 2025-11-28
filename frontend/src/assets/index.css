@@ -3,6 +3,7 @@ body, html {
     padding: 0;
     font-family:"Hanken Grotesk", Arial, sans-serif;
     font-size: large;
+    color: black;
 }
 
 a {
@@ -11,7 +12,7 @@ a {
 }
 
 .app-container {
-    background-color: #121212;
+    background-color: white;
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -20,7 +21,8 @@ a {
 header {
     padding: 20px;
     width: 100hv;
-    background-color: #28a745;
+    background-color: black;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,8 +49,20 @@ ul {
 }
 
 .signup {
-    background-color: #bec2be;
+    background-color: #28a745;
     border-radius: 10px;
+}
+
+.logout {
+    background-color: #28a745;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: medium;
+    font-weight: 600;
+    color: white;
+    margin-left: 20px;
+    border: none;
+    cursor: pointer;
 }
 
 li{
@@ -67,7 +81,7 @@ main {
     justify-content: center;
     align-items: center;
     border: 5px;
-    border-color: aliceblue;
+    border-color: black;
     flex: 1;
 }
 /*                                                  SIGN IN PAGE                                                   */
@@ -80,7 +94,7 @@ main {
 
 .auth-form {
     display: flex;
-    color: white;
+    color: black;
     justify-content: center;
     align-items: center;
     flex-direction: column  ;
@@ -95,11 +109,11 @@ main {
 .auth-form > form > label > input {
     border: none;
     padding: 10px 15px;
-    background-color: #121212;
+    background-color: white;
     /* margin-left: 30px; */
     /* border-bottom: 1px solid white; */
-    color: white;
-    border: 1px solid white;
+    color: black;
+    border: 1px solid black;
     border-radius: 15px;
 }
 
@@ -121,7 +135,7 @@ main {
 
 .auth-form > p > a {
     color: #28a745;
-    border-bottom: 1px solid #bec2be;
+    border-bottom: 1px solid black;
 }
 
 .error-message {
@@ -131,14 +145,12 @@ main {
 }
 
 
-
-
 /*                                                         LOST&FOUND Pages                                                      */
 .item-page {
   margin: 0;
   padding: 0;
-  color: white;
-  background-color: #121212;
+  color: black;
+  background-color: white;
 }
 
 .item-page > h1 {
@@ -165,6 +177,7 @@ main {
   padding: 10px 15px;
   border-radius: 7px;
   background-color: #FFEAD0;
+  cursor: pointer;
 }
 
 .item-page > ul > p {
@@ -178,6 +191,65 @@ main {
   /* flex-direction: column; */
   flex-wrap: wrap;
   /* max-width: fit-content; */
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 20px;
+}
+
+/* FOOTER */
+.footer {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    padding: 20px 0; /* Vertical padding for breathing room */
+    text-align: center; /* Horizontal centering for text */
+    font-family: 'Hanken Grotesk', Arial, sans-serif; /* Matches your existing font */
+    font-size: 14px; /* Small, professional size */
+    border-top: 1px solid #333; /* Subtle top border for separation */
+}
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertical centering */
+    align-items: center; /* Horizontal centering */
+    /* gap: 0px; Space between elements */
+    max-width: 1000px; /* Optional: Limit width for larger screens */
+    margin: 0 auto; /* Center the container */
+}
+.copyright {
+    margin: 0;
+    font-weight: 400;
+}
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between links and separator */
+}
+.footer-link {
+    color: #28a745; /* Your green accent for links */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s; /* Smooth hover effect */
+}
+
+/*CONTACT PAGE*/
+/* Full-page centering */
+.contact-us-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-grow: 1;
+
+    background: #f5f5f5;
+}
+
+/* Centered box */
+.contact-container {
+    background: white;
+    padding: 40px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+    width: 90%;
+    max-width: 600px;
 }

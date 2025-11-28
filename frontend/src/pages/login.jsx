@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import React from "react"
+import { UserContext } from "../contexts/usercontext"
 
 export default function Login() {
   // eslint-disable-next-line no-unused-vars
-  const [user, setUser] = React.useState(null)
+  const {user, setUser} = React.useContext(UserContext)
   const navigate = useNavigate()
   const email = React.useRef()
   const password = React.useRef()
@@ -15,8 +16,7 @@ export default function Login() {
     })
     .then(res => res.json())
     .then(data => {
-      if (data.body.loggedIn === true) {
-      setUser({id: data.body.user_id})
+      if (data.body?.loggedIn === true) {
       navigate('/chat')
       }
     })
@@ -37,8 +37,9 @@ export default function Login() {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      console.log(data.body)
       if (data.status === 'success') {
+        setUser(data.body)
         navigate('/chat')
       } else {
         alert(data.message)
@@ -63,7 +64,7 @@ export default function Login() {
             name="mail"
             placeholder="firstname.Prn@vit.edu"
             ref={email}
-          />
+          required/>
         </label>
         
         <label>
@@ -74,7 +75,7 @@ export default function Login() {
             name="pass1"
             placeholder="Password"
             ref={password}
-          />
+          required/>
         </label>
 
         <button type="submit">Submit</button>
