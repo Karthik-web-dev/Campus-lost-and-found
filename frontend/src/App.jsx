@@ -12,24 +12,35 @@ import ItemList from "./pages/itemList"
 import Contact from "./pages/contact"
 import About from "./pages/aboutus"
 import Found from "./pages/found"
+import Post from "./pages/item"
+
+import { SocketProvider } from "./contexts/socketcontext"
+import { UserProvider } from "./contexts/usercontext"
 
 export default function App() {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+
   return(
-    <BrowserRouter>    
-      <div className="app-container">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home/>}></Route>
-          <Route path="/chat" element={<Chat/>}></Route>
-          <Route path="/signup" element={<Signup/>}></Route>
-          <Route path="/login" element={<Login/>}></Route>
-          <Route path="/lost" element={<ItemList isFound={false}/>}></Route>
-          <Route path="/found" element={<Found/>}></Route>
-          <Route path="/contact" element={<Contact/>}></Route>
-          <Route path="/about" element={<About/>}></Route>
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <UserProvider setIsAuthenticated={setIsAuthenticated}>
+      <SocketProvider isAuthenticated={isAuthenticated}>
+        <BrowserRouter>    
+          <div className="app-container">
+            <Header auth={setIsAuthenticated}/>
+            <Routes>
+              <Route path="/" element={<Home/>}></Route>
+              <Route path="/chat" element={<Chat/>}></Route>
+              <Route path="/signup" element={<Signup/>}></Route>
+              <Route path="/login" element={<Login auth={setIsAuthenticated}/>}></Route>
+              <Route path="/posts" element={<ItemList isFound={false}/>}></Route>
+              <Route path="/report" element={<Found/>}></Route>
+              <Route path="/contact" element={<Contact/>}></Route>
+              <Route path="/about" element={<About/>}></Route>
+              <Route path="/post/:id" element={<Post/>}></Route>
+            </Routes>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </SocketProvider>
+    </UserProvider>
   )
 }

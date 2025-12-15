@@ -2,25 +2,25 @@ import { Link, useNavigate } from "react-router-dom"
 import React from "react"
 import { UserContext } from "../contexts/usercontext"
 
-export default function Login() {
+export default function Login({auth}) {
   // eslint-disable-next-line no-unused-vars
-  const {user, setUser} = React.useContext(UserContext)
+  const {user, setUser, fetchUser} = React.useContext(UserContext)
   const navigate = useNavigate()
   const email = React.useRef()
   const password = React.useRef()
 
   //Check if user is already logged in :
-  React.useEffect(() => {
-    fetch('http://localhost:5000/api/me', {
-      credentials:"include"
-    })
-    .then(res => res.json())
-    .then(data => {
-      if (data.body?.loggedIn === true) {
-      navigate('/chat')
-      }
-    })
-  }, [navigate])
+  // React.useEffect(() => {
+  //   fetch('http://localhost:5000/api/me', {
+  //     credentials:"include"
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     if (data.body?.loggedIn === true) {
+  //     navigate('/')
+  //     }
+  //   })
+  // }, [navigate])
 
   function handleLogin(e) {
     e.preventDefault()
@@ -39,8 +39,10 @@ export default function Login() {
     .then(data => {
       console.log(data.body)
       if (data.status === 'success') {
-        setUser(data.body)
-        navigate('/chat')
+        fetchUser();
+        auth(true)
+        navigate('/')
+        alert(data.message)
       } else {
         alert(data.message)
       }

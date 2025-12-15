@@ -151,6 +151,7 @@ main {
   padding: 0;
   color: black;
   background-color: white;
+  flex: 1;
 }
 
 .item-page > h1 {
@@ -172,12 +173,17 @@ main {
   padding: 0;
 }
 
-.item-page > ul > li {
+.item-page > ul > li{
   color: #4D4D4D;
   padding: 10px 15px;
   border-radius: 7px;
   background-color: #FFEAD0;
   cursor: pointer;
+  font-size: large;
+}
+
+.item-page > ul > li.selected-filter {
+    background-color: #A8D1FF;  
 }
 
 .item-page > ul > p {

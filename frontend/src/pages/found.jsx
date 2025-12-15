@@ -9,8 +9,11 @@ export default function Found() {
 
         const handleSubmit = (e) => {
         e.preventDefault();
+        // if (user?.loggedIn === false) {
+        //   alert("You are not logged in!")
+        //   return
+        // }
         const formData = new FormData(e.target);
-        formData.append("type", "found")
 
         const file = formData.get("image"); 
         console.log("Image file:", file);
@@ -27,19 +30,18 @@ export default function Found() {
         .then(data => {
             console.log(data)
             alert("Success!")
-            navigate('/lost')
+            navigate('/posts')
         })
         .catch(err => {
           console.error(err)
           alert("You are not logged in!")
-          navigate('/login')
         });
 
     };
 
   return (
     <div className="form-container">
-      <h2>REPORT A LOST ITEM</h2>
+      <h2>MAKE A REPORT</h2>
 
       <form onSubmit={handleSubmit}>
         <label>Item Lost:</label>
@@ -47,6 +49,13 @@ export default function Found() {
 
         <label>Description:</label>
         <textarea name="desc" required />
+
+        <label>Type:</label>
+        <select name="type" defaultValue={""} required>
+          <option value="" disabled>Select Type</option>
+          <option value="lost">Lost my Item</option>
+          <option value="found">Found someone's Item</option>
+        </select>
 
         <label>Location:</label>
         <input name="loc" type="text" required />
@@ -58,8 +67,8 @@ export default function Found() {
         <input name="time" type="time" required />
 
         <label>Category:</label>
-        <select name="category" required>
-          <option value="">Select Category</option>
+        <select name="category" defaultValue={""} required>
+          <option value="" disabled>Select Category</option>
           <option value="Electronics">Electronics</option>
           <option value="Documents">Documents</option>
           <option value="Clothing">Clothing</option>
@@ -67,7 +76,7 @@ export default function Found() {
           <option value="Other">Other</option>
         </select>
 
-        <label>Upload Image (optional):</label>
+        <label>Upload Image :</label>
         <input name="image" type="file" accept="image/*" />
 
         {/* <label>Your Message:</label>

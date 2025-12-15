@@ -13,18 +13,26 @@ export default function Signup() {
     password:""
   });
 
-  function matchPassword() {
-    return (password !== "" && confirmPass !== "" && password !== confirmPass)
-  }
+  // function matchPassword() {
+  //   return (password !== "" && confirmPass !== "" && password !== confirmPass)
+  // }
 
-  function validatePassword(){
-      const validated = confirmPass.length >= 8 && password.length >= 8
-      if (validated === true) {
-        return false
-      } else {
-        return true
-      }
-  }
+  // function validatePassword(){
+  //     const validated = confirmPass.length >= 8 && password.length >= 8
+  //     if (validated === true) {
+  //       return false
+  //     } else {
+  //       return true
+  //     }
+  // }
+
+  function matchPassword() {
+  return password !== "" && confirmPass !== "" && password !== confirmPass;
+}
+
+function validatePassword() {
+  return password.length < 8 || confirmPass.length < 8;
+}
 
 const handleChange = (e) => {
   setForm({

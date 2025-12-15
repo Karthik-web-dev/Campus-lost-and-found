@@ -16,6 +16,23 @@
     padding: 10px;
 }
 
+.welcome-message {
+  flex: 1;                   /* Take up remaining height */
+  display: flex;             
+  justify-content: center;    /* Horizontal center */
+  align-items: center;        /* Vertical center */
+  text-align: center;         /* Center text inside */
+  color: #555555;
+}
+
+.message-title {
+    font-size: 0.8rem;          /* Slightly larger than normal text */
+    font-weight: 600;           /* Semi-bold for emphasis */
+    color: #414541;             /* Matches your chat-header color scheme */
+    border-radius: 12px;        /* Rounded corners */
+}
+
+
 .chat-item {
     padding: 15px;
     border-bottom: 1px solid #ccc;

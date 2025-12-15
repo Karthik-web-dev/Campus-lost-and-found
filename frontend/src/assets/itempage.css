@@ -1,0 +1,37 @@
+.page-container {
+    flex: 1;
+    display: flex;
+    gap: 50px;
+}
+
+.page-container > .image {
+    flex: 0.2;
+    width: auto;
+    height: auto;
+}
+
+.page-container > .details {
+    flex: 0.8;
+    font-size: 1.15rem;
+    margin-bottom: 20px;
+}
+
+.page-container > .details > .contact-btn   {
+    font-size: 1.05rem;
+    margin-bottom: 20px;
+    color: black;
+    border-radius: 12px;
+}
+
+.page-container > .details > .tag {
+  color: #4D4D4D;
+  padding: 10px 15px;
+  border-radius: 7px;
+  /* background-color: #FFEAD0; */
+  background-color: #A8D1FF;
+  cursor: pointer;
+  max-width: 90px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}

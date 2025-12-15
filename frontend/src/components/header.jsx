@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom"
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faComments, faBell, faSuitcase, faLocationDot, faRightToBracket, faUserPlus, faArrowRightArrowLeft, faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons"
+import {faComments, faBell, faSuitcase, faLocationDot, faRightToBracket, faUserPlus, faUser, faArrowRightToBracket} from "@fortawesome/free-solid-svg-icons"
 import React from "react"
 import { UserContext } from "../contexts/usercontext"
 
-export default function Header() {  
+export default function Header({auth}) {  
     const {user, setUser} = React.useContext(UserContext)
     const navigate = useNavigate()
 
@@ -17,10 +17,13 @@ export default function Header() {
             }
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                        setUser(null)
+                        auth(false)
+                        navigate('/')
+                        alert(data.message)
+            })
             .catch(err => console.error(err))
-        setUser(null)
-        navigate('/')
     }
 
 
@@ -31,8 +34,8 @@ export default function Header() {
             <ul className="options">
                 {/* <li><FontAwesomeIcon icon={faMagnifyingGlass}/>Search</li> */}
                 <li><Link to="/chat"><FontAwesomeIcon icon={faComments} className="icon"/>Chat</Link></li>
-                <li><Link to="/lost"><FontAwesomeIcon icon={faSuitcase} className="icon"/>Lost</Link></li>
-                <li><Link to="/found"><FontAwesomeIcon icon={faLocationDot} className="icon"/>Found</Link></li>
+                <li><Link to="/posts"><FontAwesomeIcon icon={faSuitcase} className="icon"/>Posts</Link></li>
+                <li><Link to="/report"><FontAwesomeIcon icon={faLocationDot} className="icon"/>Report</Link></li>
             </ul>
 
             {user?.name == null ? (
@@ -42,7 +45,7 @@ export default function Header() {
                 <li className="signup"><Link to="/signup"><FontAwesomeIcon icon={faUserPlus} className="icon"/>SignUp</Link></li>
             </ul>) : (
                 <>
-                    <p>Welcome, {user?.name}
+                    <p><FontAwesomeIcon icon={faUser}/> Welcome, {user?.name}
                     <button className="logout" onClick={handleLogout}>Logout<FontAwesomeIcon icon={faArrowRightToBracket} className="icon" /></button></p>
                 </>
                 )}

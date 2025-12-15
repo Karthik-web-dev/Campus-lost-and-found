@@ -65,8 +65,17 @@ class Message(db.Model):
     __tablename__ = "messages"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     conversation_id = db.Column(db.Integer, db.ForeignKey("conversations.id"), nullable=False)
-    sender_id = db.Column(db.Integer, db.ForeignKey("credentials.id"), nullable=False)
-    receiver_id = db.Column(db.Integer, db.ForeignKey("credentials.id"), nullable=False)
+    sender_id= db.Column(db.Integer, db.ForeignKey("credentials.id"), nullable=False)
     content = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=lambda: datetime.now(IST), nullable=False)
     is_read = db.Column(db.Boolean, default=False)
+
+    def to_dict(self):
+        return {
+            "id":self.id,
+            "conversation_id":self.conversation_id,
+            "sender_id":self.sender_id,
+            "content":self.content,
+            "timestamp":str(self.timestamp),
+            "is_read":self.is_read
+        }
