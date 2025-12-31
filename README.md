@@ -28,48 +28,20 @@ This project enables students and staff to report, track, and retrieve lost or f
 
 ## Project Structure
 ```
-root/
-├─ backend/
-│  ├─ migrations/
-│  │  ├─ versions/
-│  │  │  ├─ 58b45896d786_.py
-│  │  │  ├─ 5b5b93403fc8_.py
-│  │  │  └─ 94f74877acea_.py
-│  │  ├─ alembic.ini
-│  │  ├─ env.py
-│  │  ├─ README
-│  │  └─ script.py.mako
-│  ├─ app.py
-│  ├─ models.py
-│  ├─ routes.py
-│  ├─ run.py
-│  ├─ requirements.txt
-│  └─ .gitignore
-├─ frontend/
-│  ├─ src/
-│  │  ├─ assets/
-│  │  │  ├─ card.css
-│  │  │  ├─ chat.css
-│  │  │  └─ index.css
-│  │  ├─ components/
-│  │  │  ├─ emojitab.jsx
-│  │  │  ├─ header.jsx
-│  │  │  └─ menu.jsx
-│  │  ├─ pages/
-│  │  │  ├─ chat.jsx
-│  │  │  ├─ home.jsx
-│  │  │  ├─ itemList.jsx
-│  │  │  ├─ login.jsx
-│  │  │  └─ signup.jsx
-│  │  ├─ App.jsx
-│  │  └─ main.jsx
-│  ├─ index.html
-│  ├─ package.json
-│  ├─ package-lock.json
-│  ├─ vite.config.js
-│  └─ .gitignore
-├─ .gitignore
-└─ README.md
+Campus-lost-and-found/
+├── backend/
+│   ├── app.py
+│   ├── models.py
+│   ├── routes.py
+│   ├── run.py
+│   └── requirements.txt
+├── frontend/
+│   ├── src/
+│   ├── package.json
+│   └── vite.config.js
+├── .gitignore
+└── README.md
+
 ```
 ## ⚙️Backend Setup (Flask)
 1. Create Virtual Environment
@@ -132,37 +104,43 @@ from flask_cors import CORS
 CORS(app)
 ```
 
-## 💾Database Models
-### User Table
-- id
-- names
-- email
-- password_hash
+## 💾 Database Models
 
-### Lost  & Found Posts Table
-- id
-- title
-- description
-- type (ENUM: "lost":"found")
-- location
-- date
-- image_url
-- user_id (FK → users.id)
-- created_at (IST timestamp)
+### Users Table
+- `id` (PK)  
+- `email`  
+- `password_hash`  
+- `prn`  
+- `name`  
+- `division`  
 
-### Conversation Table
-- id
-- user1 (id)
-- user2 (id)
-- created_at
+### Lost & Found Posts Table
+- `id` (PK)  
+- `title`  
+- `description`  
+- `type` (ENUM: `"lost"` | `"found"`)  
+- `category`  
+- `location`  
+- `date`  
+- `time`  
+- `image_url`  
+- `user_id`  
+- `created_at` (IST timestamp)  
+
+### Conversations Table
+- `id` (PK)  
+- `user1` (user id)  
+- `user2` (user id)  
+- `created_at` (IST timestamp)  
 
 ### Messages Table
-- id
-- conversation_id (FK conversations.id)
-- sender_id
-- reciever_id
-- message
-- created_at
+- `id` (PK)  
+- `conversation_id` (FK → conversations.id)  
+- `sender_id` (FK → credentials.id)  
+- `content`  
+- `timestamp` (IST timestamp)  
+- `is_read` (boolean)
+
 
 ## Features Implemented So Far
 ✔️ User Registration & login 
@@ -179,14 +157,9 @@ CORS(app)
 
 ✔️ React frontend using CSS 
 
-## 📌Upcoming Features
-📃Image upload via [Cloudinary](https://cloudinary.com)/ [Imgur](https://imgur.com)
+✔️ Image upload support via [Cloudinary](https://cloudinary.com) / [Imgur](https://imgur.com)
 
-📃Edit/Delete Posts
-
-📃Better UI Styling
-
-📃Inbuilt Chat Support
+✔️ Real-time chat support between users  
 
 ## Screenshots
 Coming soon...
