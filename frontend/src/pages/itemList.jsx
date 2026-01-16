@@ -28,13 +28,17 @@ export default function ItemList({ isFound }) {
             .catch(err => console.error(err))
     }, [])
 
-    function handleCreateChat(user2) {
+    function handleCreateChat(user2, postId) {
+        // if (user.id === user2) {
+        //     alert("You cannot chat with yourself");
+        //     return;
+        // }
         console.log(user)
         if(!user || user.loggedIn===false) {
             alert("You need to login to chat...")
             return
         }
-        const data = {"user1": user.id, "user2":user2}
+        const data = {"user1": user.id, "user2":user2, "post_id":postId}
         fetch('http://localhost:5000/api/conversations/new', {
             method:"POST",
             credentials:"include",
@@ -49,7 +53,8 @@ export default function ItemList({ isFound }) {
                 socket.emit("new_conversation", {
                     sender_id: user?.id,
                     receiver_id: user2,
-                    conv_id: convId.current
+                    conv_id: convId.current,
+                    // post_id: postId
                 });
 
                 navigate('/chat')

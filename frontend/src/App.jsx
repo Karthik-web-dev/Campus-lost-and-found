@@ -13,6 +13,7 @@ import Contact from "./pages/contact"
 import About from "./pages/aboutus"
 import Found from "./pages/found"
 import Post from "./pages/item"
+import EditPost from "./pages/itemedit"
 
 import { SocketProvider } from "./contexts/socketcontext"
 import { UserProvider } from "./contexts/usercontext"
@@ -36,8 +37,9 @@ export default function App() {
               <Route path="/contact" element={<Contact/>}></Route>
               <Route path="/about" element={<About/>}></Route>
               <Route path="/post/:id" element={<Post/>}></Route>
+              <Route path="/post/edit/:id" element={<EditPost/>}></Route>
             </Routes>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </BrowserRouter>
       </SocketProvider>

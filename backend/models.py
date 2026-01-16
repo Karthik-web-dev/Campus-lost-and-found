@@ -14,7 +14,7 @@ class Posts(db.Model):
     location = db.Column(db.String(255), nullable=False)
     date = db.Column(db.Date, nullable=False)
     time = db.Column(db.Time, nullable=False)
-    image_url = db.Column(db.String(255))
+    image_url = db.Column(db.Text, nullable=False)
     category = db.Column(db.String(15), nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(IST), nullable=False)
@@ -59,6 +59,7 @@ class Conversations(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user1 = db.Column(db.Integer, nullable=False)
     user2 = db.Column(db.Integer, nullable=False)
+    post_id = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(IST), nullable=False)
 
 class Message(db.Model):
@@ -68,7 +69,7 @@ class Message(db.Model):
     sender_id= db.Column(db.Integer, db.ForeignKey("credentials.id"), nullable=False)
     content = db.Column(db.Text, nullable=False)
     timestamp = db.Column(db.DateTime, default=lambda: datetime.now(IST), nullable=False)
-    is_read = db.Column(db.Boolean, default=False)
+    is_moderated = db.Column(db.Boolean, nullable=False)
 
     def to_dict(self):
         return {
@@ -77,5 +78,5 @@ class Message(db.Model):
             "sender_id":self.sender_id,
             "content":self.content,
             "timestamp":str(self.timestamp),
-            "is_read":self.is_read
+            "is_moderated":self.is_moderated
         }

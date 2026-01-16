@@ -1,171 +1,180 @@
-import React from "react";
-import {Link, useNavigate} from "react-router-dom"
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
-  const [password, setPassword] = React.useState("");
-  const [confirmPass, setConfirmPass] = React.useState("");
-  const navigate = useNavigate()
-  const [form, setForm] = React.useState({
-    email:"",
-    prn:"",
-    name:"",
-    class:"",
-    password:""
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    prn: "",
+    name: "",
+    class: "",
+    password: ""
   });
-
-  // function matchPassword() {
-  //   return (password !== "" && confirmPass !== "" && password !== confirmPass)
-  // }
-
-  // function validatePassword(){
-  //     const validated = confirmPass.length >= 8 && password.length >= 8
-  //     if (validated === true) {
-  //       return false
-  //     } else {
-  //       return true
-  //     }
-  // }
 
   function matchPassword() {
-  return password !== "" && confirmPass !== "" && password !== confirmPass;
-}
+    return password !== "" && confirmPass !== "" && password !== confirmPass;
+  }
 
-function validatePassword() {
-  return password.length < 8 || confirmPass.length < 8;
-}
+  function validatePassword() {
+    return password.length < 8;
+  }
 
-const handleChange = (e) => {
-  setForm({
-    ...form,
-    [e.target.name]: e.target.value
-  });
-};
+  function validateConfirmPassword() {
+    return confirmPass.length < 8;
+  }
 
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
 
-  function signup(e) {
-    e.preventDefault()
-    console.log("worked")
-    if (matchPassword() === false && validatePassword() === false) {
-      const payload = {
-        ...form,
-        password:password
+  async function signup(e) {
+    e.preventDefault();
+    if (matchPassword() || validatePassword() || validateConfirmPassword()) return;
+
+    setLoading(true);
+
+    try {
+      const payload = { ...form, password };
+      const res = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Signup failed");
       }
 
-    console.log(payload)
-    fetch('http://localhost:5000/api/signup', {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body: JSON.stringify(payload)
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
-    .catch(err => console.error(err))
-    navigate('/login')
-    setForm({
-    email:"",
-    prn:"",
-    name:"",
-    class:"",
-    password:""
-  })
-    setPassword("")
-    setConfirmPass("")
-    } 
+      const data = await res.json();
+      alert("Signup successful! Redirecting to login...");
+      navigate("/login");
+      setForm({
+        email: "",
+        prn: "",
+        name: "",
+        class: "",
+        password: ""
+      });
+      setPassword("");
+      setConfirmPass("");
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "An error occurred during signup");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <div className="signup-page">
-    <div className="auth-form">
-      <h1>Sign Up</h1>
-      <form onSubmit={signup}>
-        <label>
-          Enter your college email:
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="firstname.Prn@vit.edu"
-            onChange={handleChange}
-            value={form.email}
-          required/>
-        </label>
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <p>Signing up...</p>
+        </div>
+      )}
 
-        <label>
-          Enter your college PRN Number:
-          <input
-            type="number"
-            id="prn"
-            name="prn"
-            placeholder="PRN Number"
-            onChange={handleChange}
-            value={form.prn}
-          required/>
-        </label>
+      <div className="auth-form">
+        <h1>Sign Up</h1>
+        <form onSubmit={signup}>
+          <label>
+            Enter your college email:
+            <input
+              type="email"
+              name="email"
+              placeholder="firstname.Prn@vit.edu"
+              onChange={handleChange}
+              value={form.email}
+              required
+            />
+          </label>
 
-        <label>
-          Enter your name:
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Your name"
-            onChange={handleChange}
-            value={form.name}
-          required/>
-        </label>
+          <label>
+            Enter your college PRN Number:
+            <input
+              type="number"
+              name="prn"
+              placeholder="PRN Number"
+              onChange={handleChange}
+              value={form.prn}
+              required
+            />
+          </label>
 
-        <label>
-          Enter your class and division:
-          <input
-            type="text"
-            id="class"
-            name="class"
-            placeholder="Example: FYCS-A"
-            onChange={handleChange}
-            value={form.class}
-          required/>
-        </label>
+          <label>
+            Enter your name:
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              onChange={handleChange}
+              value={form.name}
+              required
+            />
+          </label>
 
-        <label>
-          Set your password:
-          <input
-            type="password"
-            id="pass1"
-            name="pass1"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          required/>
-        </label>
+          <label>
+            Enter your class and division:
+            <input
+              type="text"
+              name="class"
+              placeholder="Example: FYCS-A"
+              onChange={handleChange}
+              value={form.class}
+              required
+            />
+          </label>
 
-        <label>
-          Confirm your password:
-          <input
-            type="password"
-            id="pass2"
-            name="pass2"
-            placeholder="Confirm Password"
-            onChange={(e) => setConfirmPass(e.target.value)}
-            value={confirmPass}
-          required/>
-        </label>
+          <label>
+            Set your password:
+            <input
+              type="password"
+              name="pass1"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+            />
+          </label>
+          {validatePassword() && (
+            <div className="error-message">❌ Password should be at least 8 characters</div>
+          )}
 
-        {matchPassword() && (
-          <div id="errorMessage" className="error-message">
-            ❌ Passwords do not match
-          </div>
-        )}
+          <label>
+            Confirm your password:
+            <input
+              type="password"
+              name="pass2"
+              placeholder="Confirm Password"
+              onChange={(e) => setConfirmPass(e.target.value)}
+              value={confirmPass}
+              required
+            />
+          </label>
 
-        {validatePassword() && (
-          <div id="errorMessage" className="error-message">
-            ❌ Password should be more than 8 characters
-          </div>
-        )}
+          {validateConfirmPassword() && (
+            <div className="error-message">❌ Confirm Password should be at least 8 characters</div>
+          )}
 
-        <button type="submit">Submit</button>
-      </form>
-      <p>Already have an account? <Link to="/login">Sign in instead →</Link></p>
-    </div>
+          {matchPassword() && (
+            <div className="error-message">❌ Passwords do not match</div>
+          )}
+
+
+          <button type="submit" disabled={loading}>Submit</button>
+        </form>
+        <p>
+          Already have an account? <Link to="/login">Sign in instead →</Link>
+        </p>
+      </div>
     </div>
   );
 }

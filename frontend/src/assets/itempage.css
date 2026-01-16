@@ -1,37 +1,86 @@
+/* =========================
+   ROOT THEME VARIABLES
+========================= */
+:root {
+  --bg-primary: #ffffff; /* Main background */
+  --bg-secondary: #f5f5f5; /* Secondary background */
+  --text-primary: #333; /* Main text */
+  --text-secondary: #4d4d4d; /* Secondary text (for tags) */
+  --button-bg: #28a745; /* Button background */
+  --button-text: #000000; /* Button text */
+  --tag-bg: #a8d1ff; /* Tag background */
+  --tag-text: #4d4d4d; /* Tag text */
+  --border-radius: 12px; /* Consistent border radius */
+  --transition: all 0.3s ease; /* Smooth transitions */
+}
+
+/* =========================
+   DARK MODE OVERRIDES
+========================= */
+[data-theme="dark"] {
+  --bg-primary: #121212; /* Dark main background */
+  --bg-secondary: #1e1e1e; /* Dark secondary background */
+  --text-primary: #eaeaea; /* Light main text */
+  --text-secondary: #888585; /* Light secondary text */
+  --button-bg: #4caf50; /* Adjusted green button for dark mode */
+  --button-text: #ffffff; /* White button text */
+  --tag-bg: #2c8fff; /* Dark tag background */
+  --tag-text: #b3b3b3; /* Light tag text */
+}
+
 .page-container {
     flex: 1;
     display: flex;
     gap: 50px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    transition: var(--transition);
 }
 
 .page-container > .image {
     flex: 0.2;
     width: auto;
     height: auto;
+    margin-top: 30px;
 }
 
 .page-container > .details {
     flex: 0.8;
     font-size: 1.15rem;
     margin-bottom: 20px;
+    color: var(--text-primary);
+    transition: var(--transition);
 }
 
-.page-container > .details > .contact-btn   {
+.page-container > .details > .contact-btn {
     font-size: 1.05rem;
     margin-bottom: 20px;
-    color: black;
-    border-radius: 12px;
+    color: var(--button-text);
+    background-color: var(--button-bg);
+    border-radius: var(--border-radius);
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.page-container > .details > .contact-btn:hover {
+    opacity: 0.9;
 }
 
 .page-container > .details > .tag {
-  color: #4D4D4D;
+  color: var(--tag-text);
   padding: 10px 15px;
   border-radius: 7px;
-  /* background-color: #FFEAD0; */
-  background-color: #A8D1FF;
+  background-color: var(--tag-bg);
   cursor: pointer;
   max-width: 90px;
   display: flex;
   text-align: center;
   justify-content: center;
+  transition: var(--transition);
+}
+
+.page-container > .details > .tag:hover {
+    opacity: 0.8;
 }

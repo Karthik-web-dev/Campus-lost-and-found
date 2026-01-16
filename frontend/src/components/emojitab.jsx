@@ -1,92 +1,62 @@
-export default function EmojiTab() {
-    return(
-        <div className="emoji-picker">
-                <div className="emoji-tabs">
-                    <div className="emoji-tab active">😀</div>
-                    <div className="emoji-tab">👥</div>
-                    <div className="emoji-tab">🌿</div>
-                    <div className="emoji-tab">🍎</div>
-                    <div className="emoji-tab">⚽</div>
-                </div>
-                <div className="emoji-grid active">
-                    <span className="emoji">😀</span>
-                    <span className="emoji">😃</span>
-                    <span className="emoji">😄</span>
-                    <span className="emoji">😁</span>
-                    <span className="emoji">😆</span>
-                    <span className="emoji">😅</span>
-                    <span className="emoji">😂</span>
-                    <span className="emoji">🤣</span>
-                    <span className="emoji">😊</span>
-                    <span className="emoji">😇</span>
-                    <span className="emoji">🙃</span>
-                    <span className="emoji">😉</span>
-                    <span className="emoji">😍</span>
-                    <span className="emoji">😘</span>
-                    <span className="emoji">😗</span>
-                    <span className="emoji">😙</span>
-                    <span className="emoji">😚</span>
-                    <span className="emoji">😋</span>
-                    <span className="emoji">😛</span>
-                    <span className="emoji">😝</span>
-                    <span className="emoji">😜</span>
-                    <span className="emoji">🤪</span>
-                    <span className="emoji">🤨</span>
-                    <span className="emoji">🧐</span>
-                    <span className="emoji">🤓</span>
-                    <span className="emoji">😎</span>
-                    <span className="emoji">🤩</span>
-                    <span className="emoji">😏</span>
-                    <span className="emoji">😒</span>
-                    <span className="emoji">😞</span>
-                    <span className="emoji">😔</span>
-                    <span className="emoji">😟</span>
-                    <span className="emoji">😕</span>
-                    <span className="emoji">🙁</span>
-                    <span className="emoji">☹️</span>
-                    <span className="emoji">😣</span>
-                    <span className="emoji">😖</span>
-                    <span className="emoji">😫</span>
-                    <span className="emoji">😩</span>
-                    <span className="emoji">😤</span>
-                    <span className="emoji">😠</span>
-                    <span className="emoji">😡</span>
-                    <span className="emoji">😶</span>
-                    <span className="emoji">😐</span>
-                    <span className="emoji">😑</span>
-                    <span className="emoji">😯</span>
-                    <span className="emoji">😦</span>
-                    <span className="emoji">😧</span>
-                    <span className="emoji">😮</span>
-                    <span className="emoji">😲</span>
-                    <span className="emoji">😵</span>
-                    <span className="emoji">😳</span>
-                    <span className="emoji">😱</span>
-                    <span className="emoji">😨</span>
-                    <span className="emoji">😰</span>
-                    <span className="emoji">😢</span>
-                    <span className="emoji">😥</span>
-                    <span className="emoji">🤤</span>
-                    <span className="emoji">😭</span>
-                    <span className="emoji">😓</span>
-                    <span className="emoji">😪</span>
-                    <span className="emoji">😴</span>
-                    <span className="emoji">🙄</span>
-                    <span className="emoji">🤔</span>
-                    <span className="emoji">🤥</span>
-                    <span className="emoji">😬</span>
-                    <span className="emoji">🤐</span>
-                    <span className="emoji">🤢</span>
-                    <span className="emoji">🤮</span>
-                    <span className="emoji">🤧</span>
-                    <span className="emoji">😷</span>
-                    <span className="emoji">🤒</span>
-                    <span className="emoji">🤕</span>
-                </div>
-                <div className="emoji-grid">
-                    {// <!-- Add more emoji grids here if needed, with each emoji wrapped in <span className="emoji"> -->
-                    }
-                </div>
-            </div>
-    )
+import React from "react";
+import emojiData from "unicode-emoji-json";
+
+
+const CATEGORIES = [
+  "Smileys & Emotion",
+  "People & Body",
+  "Animals & Nature",
+  "Food & Drink",
+  "Activities",
+];
+
+export default function EmojiTab({ onEmojiSelect }) {
+  const [activeCategory, setActiveCategory] = React.useState(CATEGORIES[0]);
+
+
+  const categoryEmojis = React.useMemo(() => {
+    return CATEGORIES.map((cat) => {
+      const firstEmoji = Object.entries(emojiData).find(
+        ([emoji, info]) => info.group === cat
+      )?.[0];
+      return { category: cat, icon: firstEmoji || "❓" };
+    });
+  }, []);
+
+  // Filter emojis for the active category
+  const activeEmojis = React.useMemo(() => {
+    return Object.entries(emojiData)
+      .filter(([emoji, info]) => info.group === activeCategory)
+      .map(([emoji]) => emoji);
+  }, [activeCategory]);
+
+  return (
+    <div className="emoji-picker">
+      {/* Tabs */}
+      <div className="emoji-tabs">
+        {categoryEmojis.map(({ category, icon }) => (
+          <div
+            key={category}
+            className={`emoji-tab ${category === activeCategory ? "active" : ""}`}
+            onClick={() => setActiveCategory(category)}
+          >
+            {icon}
+          </div>
+        ))}
+      </div>
+
+
+      <div className="emoji-grid active">
+        {activeEmojis.map((emoji) => (
+          <span
+            key={emoji}
+            className="emoji"
+            onClick={() => onEmojiSelect?.(emoji)}
+          >
+            {emoji}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
 }

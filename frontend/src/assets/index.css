@@ -1,9 +1,117 @@
+/* ================================
+   GLOBAL THEME VARIABLES
+   ================================ */
+
+[data-theme="light"]{
+  /* ===== Backgrounds ===== */
+  --bg-main:        #FFFFFF; /* app background */
+  --bg-surface:     #F5F5F5; /* cards, panels */
+  --bg-elevated:    #FFFFFF; /* modals, dropdowns */
+  --bg-hover:       #EAEAEA;
+
+  /* ===== Text ===== */
+  --text-primary:   #1A1A1A; /* main text */
+  --text-secondary: #555555; /* labels, hints */
+  --text-muted:     #888888; /* disabled */
+  --text-inverse:   #FFFFFF; /* text on dark buttons */
+  --logout: #FFFFFF;
+
+  /* ===== Borders ===== */
+  --border-subtle:  #DDDDDD;
+  --border-strong:  #CCCCCC;
+
+  /* ===== Accent / Brand ===== */
+  --accent-primary: #4F8CFF;
+  --accent-hover:   #3A6FE0;
+  --accent-active:  #2F5BD1;
+
+  /* ===== Status ===== */
+  --success: #4CAF50;
+  --warning: #FFB300;
+  --error:   #EF5350;
+  --info:    #29B6F6;
+
+  /* ===== Shadows ===== */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.18);
+
+  /* ===== Header and Footer (added for theming) ===== */
+  --header-bg:      #121212; /* Blue accent for light mode header */
+  --header-text:    #FFFFFF;
+  --footer-bg:      #000000;
+  --footer-text:    #FFFFFF;
+  --footer-border:  #333333;
+
+  /* ===== Filters (added for theming) ===== */
+  --filter-bg:      #FFEAD0;
+  --filter-selected-bg: #A8D1FF;
+  --filter-border:  #DDDDDD; /* Light border for filters */
+}
+
+/* ================================
+   DARK MODE OVERRIDES
+   ================================ */
+
+[data-theme="dark"] {
+  /* ===== Backgrounds ===== */
+  --bg-main:        #121212;
+  --bg-surface:     #1E1E1E;
+  --bg-elevated:    #242424;
+  --bg-hover:       #2A2A2A;
+
+  /* ===== Text ===== */
+  --text-primary:   #EAEAEA;
+  --text-secondary: #B3B3B3;
+  --text-muted:     #7A7A7A;
+  --text-inverse:   #121212;
+  --logout: #EAEAEA;
+
+  /* ===== Borders ===== */
+  --border-subtle:  #2C2C2C;
+  --border-strong:  #3A3A3A;
+
+  /* ===== Accent / Brand ===== */
+  --accent-primary: #4F8CFF;
+  --accent-hover:   #6A9CFF;
+  --accent-active:  #3A6FE0;
+
+  /* ===== Status ===== */
+  --success: #4CAF50;
+  --warning: #FFB300;
+  --error:   #EF5350;
+  --info:    #29B6F6;
+
+  /* ===== Shadows ===== */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.6);
+
+  /* ===== Header and Footer ===== */
+  --header-bg:      #161616; /* #2F5BD1;  Darker blue accent for dark mode header */
+  --header-text:    #EAEAEA;
+  --footer-bg:      #1E1E1E;
+  --footer-text:    #EAEAEA;
+  --footer-border:  #3A3A3A;
+
+  /* ===== Filters ===== */
+  --filter-bg:      #28a745;
+  --filter-selected-bg: #4F8CFF;
+  --filter-border:  #3A3A3A; /* Darker border for filters in dark mode */
+}
+
+/* ================================
+   SMOOTH TRANSITIONS FOR THEME SWITCH
+   ================================ */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
 body, html {
     margin: 0;
     padding: 0;
     font-family:"Hanken Grotesk", Arial, sans-serif;
     font-size: large;
-    color: black;
+    color: var(--text-primary);
+    background-color: var(--bg-main);
 }
 
 a {
@@ -12,7 +120,7 @@ a {
 }
 
 .app-container {
-    background-color: white;
+    background-color: var(--bg-main);
     display: flex;
     flex-direction: column;
     height: 100vh;
@@ -21,8 +129,8 @@ a {
 header {
     padding: 20px;
     width: 100hv;
-    background-color: black;
-    color: white;
+    background-color: var(--header-bg);
+    color: var(--header-text);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,17 +157,17 @@ ul {
 }
 
 .signup {
-    background-color: #28a745;
+    background-color: var(--success);
     border-radius: 10px;
 }
 
 .logout {
-    background-color: #28a745;
+    background-color: var(--success);
     border-radius: 10px;
     padding: 10px 20px;
     font-size: medium;
     font-weight: 600;
-    color: white;
+    color: var(--logout);
     margin-left: 20px;
     border: none;
     cursor: pointer;
@@ -81,9 +189,10 @@ main {
     justify-content: center;
     align-items: center;
     border: 5px;
-    border-color: black;
+    border-color: var(--border-strong);
     flex: 1;
 }
+
 /*                                                  SIGN IN PAGE                                                   */
 .signup-page {
     display: flex;
@@ -94,7 +203,7 @@ main {
 
 .auth-form {
     display: flex;
-    color: black;
+    color: var(--text-primary);
     justify-content: center;
     align-items: center;
     flex-direction: column  ;
@@ -109,11 +218,11 @@ main {
 .auth-form > form > label > input {
     border: none;
     padding: 10px 15px;
-    background-color: white;
+    background-color: var(--bg-elevated);
     /* margin-left: 30px; */
     /* border-bottom: 1px solid white; */
-    color: black;
-    border: 1px solid black;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
     border-radius: 15px;
 }
 
@@ -127,30 +236,65 @@ main {
 .auth-form > form > button {
     padding: 10px 15px;
     font-size: large;
-    background-color: #28a745;
-    color: black;
+    background-color: var(--success);
+    color: var(--text-inverse);
     border-radius: 15px;
     cursor: pointer;
 }
 
 .auth-form > p > a {
-    color: #28a745;
-    border-bottom: 1px solid black;
+    color: var(--success);
+    border-bottom: 1px solid var(--border-strong);
 }
 
 .error-message {
-    color: #e74c3c;
+    color: var(--error);
     font-size: 0.9em;
     margin-top: 5px;
 }
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading-overlay .spinner {
+    border: 5px solid rgba(255, 255, 255, 0.2);
+    border-top: 5px solid #fff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+.loading-overlay p {
+    color: #fff;
+    font-size: 1.2em;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 
 
 /*                                                         LOST&FOUND Pages                                                      */
 .item-page {
   margin: 0;
   padding: 0;
-  color: black;
-  background-color: white;
+  color: var(--text-primary);
+  background-color: var(--bg-main);
   flex: 1;
 }
 
@@ -174,20 +318,27 @@ main {
 }
 
 .item-page > ul > li{
-  color: #4D4D4D;
+  color: var(--text-primary);
   padding: 10px 15px;
   border-radius: 7px;
-  background-color: #FFEAD0;
+  background-color: var(--filter-bg);
+  border: 1px solid var(--filter-border); /* Added border for better definition */
   cursor: pointer;
   font-size: large;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth hover */
+}
+
+.item-page > ul > li:hover {
+  background-color: var(--bg-hover); /* Subtle hover effect */
 }
 
 .item-page > ul > li.selected-filter {
-    background-color: #A8D1FF;  
+    background-color: var(--filter-selected-bg);  
+    border-color: var(--accent-primary); /* Accent border for selected */
 }
 
 .item-page > ul > p {
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--border-strong);
   cursor: pointer;
 }
 
@@ -199,17 +350,19 @@ main {
   /* max-width: fit-content; */
   /* justify-content: space-between; */
   gap: 20px;
+  align-items:flex-start;
+  justify-content:flex-start;
 }
 
 /* FOOTER */
 .footer {
-    background-color: #000; /* Black background */
-    color: #fff; /* White text */
+    background-color: var(--footer-bg); /* Black background */
+    color: var(--footer-text); /* White text */
     padding: 20px 0; /* Vertical padding for breathing room */
     text-align: center; /* Horizontal centering for text */
     font-family: 'Hanken Grotesk', Arial, sans-serif; /* Matches your existing font */
     font-size: 14px; /* Small, professional size */
-    border-top: 1px solid #333; /* Subtle top border for separation */
+    border-top: 1px solid var(--footer-border); /* Subtle top border for separation */
 }
 .footer-content {
     display: flex;
@@ -230,7 +383,7 @@ main {
     gap: 10px; /* Space between links and separator */
 }
 .footer-link {
-    color: #28a745; /* Your green accent for links */
+    color: var(--success); /* Your green accent for links */
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s; /* Smooth hover effect */
@@ -245,16 +398,16 @@ main {
 
     flex-grow: 1;
 
-    background: #f5f5f5;
+    background: var(--bg-surface);
 }
 
 /* Centered box */
 .contact-container {
-    background: white;
+    background: var(--bg-elevated);
     padding: 40px;
-    border: 2px solid #ccc;
+    border: 2px solid var(--border-subtle);
     border-radius: 15px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-md);
 
     width: 90%;
     max-width: 600px;

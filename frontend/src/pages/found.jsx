@@ -1,94 +1,180 @@
-import React from "react";
-import "../assets/found.css"
-import { UserContext } from "../contexts/usercontext"
-import { useNavigate } from "react-router";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
-export default function Found() {
-        const {user, setUser} = React.useContext(UserContext)
-        const navigate = useNavigate()
+export default function Signup() {
+  const [password, setPassword] = useState("");
+  const [confirmPass, setConfirmPass] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    email: "",
+    prn: "",
+    name: "",
+    class: "",
+    password: ""
+  });
 
-        const handleSubmit = (e) => {
-        e.preventDefault();
-        // if (user?.loggedIn === false) {
-        //   alert("You are not logged in!")
-        //   return
-        // }
-        const formData = new FormData(e.target);
+  function matchPassword() {
+    return password !== "" && confirmPass !== "" && password !== confirmPass;
+  }
 
-        const file = formData.get("image"); 
-        console.log("Image file:", file);
-        fetch("http://localhost:5000/api/create", {
-            method: "POST",
-            credentials:"include",
-            body: formData
-        })
-        .then(res => {
-              if (!res.ok) {
-                throw new Error(`HTTP ${res.status}`);
-              }
-        })
-        .then(data => {
-            console.log(data)
-            alert("Success!")
-            navigate('/posts')
-        })
-        .catch(err => {
-          console.error(err)
-          alert("You are not logged in!")
-        });
+  function validatePassword() {
+    return password.length < 8;
+  }
 
-    };
+  function validateConfirmPassword() {
+    return confirmPass.length < 8
+  } 
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  async function signup(e) {
+    e.preventDefault();
+    if (matchPassword() || validatePassword() || validateConfirmPassword()) return;
+
+    setLoading(true);
+
+    try {
+      const payload = { ...form, password };
+      const res = await fetch("http://localhost:5000/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Signup failed");
+      }
+
+      const data = await res.json();
+      alert("Signup successful! Redirecting to login...");
+      navigate("/login");
+      setForm({
+        email: "",
+        prn: "",
+        name: "",
+        class: "",
+        password: ""
+      });
+      setPassword("");
+      setConfirmPass("");
+    } catch (err) {
+      console.error(err);
+      alert(err.message || "An error occurred during signup");
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
-    <div className="form-container">
-      <h2>MAKE A REPORT</h2>
+    <div className="signup-page">
+      {loading && (
+        <div className="loading-overlay">
+          <div className="spinner"></div>
+          <p>Signing up...</p>
+        </div>
+      )}
 
-      <form onSubmit={handleSubmit}>
-        <label>Item Lost:</label>
-        <input name="title" type="text" required />
+      <div className="auth-form">
+        <h1>Sign Up</h1>
+        <form onSubmit={signup}>
+          <label>
+            Enter your college email:
+            <input
+              type="email"
+              name="email"
+              placeholder="firstname.Prn@vit.edu"
+              onChange={handleChange}
+              value={form.email}
+              required
+            />
+          </label>
 
-        <label>Description:</label>
-        <textarea name="desc" required />
+          <label>
+            Enter your college PRN Number:
+            <input
+              type="number"
+              name="prn"
+              placeholder="PRN Number"
+              onChange={handleChange}
+              value={form.prn}
+              required
+            />
+          </label>
 
-        <label>Type:</label>
-        <select name="type" defaultValue={""} required>
-          <option value="" disabled>Select Type</option>
-          <option value="lost">Lost my Item</option>
-          <option value="found">Found someone's Item</option>
-        </select>
+          <label>
+            Enter your name:
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              onChange={handleChange}
+              value={form.name}
+              required
+            />
+          </label>
 
-        <label>Location:</label>
-        <input name="loc" type="text" required />
+          <label>
+            Enter your class and division:
+            <input
+              type="text"
+              name="class"
+              placeholder="Example: FYCS-A"
+              onChange={handleChange}
+              value={form.class}
+              required
+            />
+          </label>
 
-        <label>Date of Incident:</label>
-        <input name="date" type="date" required />
+          <label>
+            Set your password:
+            <input
+              type="password"
+              name="pass1"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+            />
+          </label>
+          {validatePassword() && (
+            <div className="error-message">❌ Password should be at least 8 characters</div>
+          )}
 
-        <label>Time of Incident:</label>
-        <input name="time" type="time" required />
+          <label>
+            Confirm your password:
+            <input
+              type="password"
+              name="pass2"
+              placeholder="Confirm Password"
+              onChange={(e) => setConfirmPass(e.target.value)}
+              value={confirmPass}
+              required
+            />
+          </label>
 
-        <label>Category:</label>
-        <select name="category" defaultValue={""} required>
-          <option value="" disabled>Select Category</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Documents">Documents</option>
-          <option value="Clothing">Clothing</option>
-          <option value="Jewelry">Jewelry</option>
-          <option value="Other">Other</option>
-        </select>
+          {validateConfirmPassword() && (
+            <div className="error-message">❌ Confirm Password should be at least 8 characters</div>
+          )}
 
-        <label>Upload Image :</label>
-        <input name="image" type="file" accept="image/*" />
+          {matchPassword() && (
+            <div className="error-message">❌ Passwords do not match</div>
+          )}
 
-        {/* <label>Your Message:</label>
-        <textarea /> */}
-{/* 
-        <div className="checkbox-container">
-          <input type="checkbox" required />
-          <span>I confirm the information provided is accurate.</span>
-        </div> */}
 
-        <button type="submit">Submit</button>
-      </form>
+          <button type="submit" disabled={loading}>Submit</button>
+        </form>
+        <p>
+          Already have an account? <Link to="/login">Sign in instead →</Link>
+        </p>
+      </div>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export function UserProvider({children, setIsAuthenticated}) {
                 }
                 console.log("CONTEXT: ", data, "\n", user)
             })
-            .catch(err => {
+                    .catch(err => {
                 console.error(err)
                 alert(err)
                 setUser(null)

@@ -119,8 +119,8 @@
 
 /* Card styles */
 .item-card {
-    background-color: #1a1a1a; /* Dark background for card */
-    border: 1px solid #28a745; /* Green border */
+    background-color: #1a1a1a;
+    border: 1px solid #28a745;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 20px;
@@ -129,7 +129,35 @@
     gap: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     max-width: 400px;
+    height: 750px;       /* fixed card height */
+    overflow-y: auto;    /* enable scroll when content overflows */
+    
+    /* Custom scrollbar for Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #28a745 #1a1a1a;
 }
+
+/* WebKit scrollbar (Chrome, Edge, Safari) */
+.item-card::-webkit-scrollbar {
+    width: 6px;  /* slim scrollbar */
+}
+
+.item-card::-webkit-scrollbar-track {
+    background: #1a1a1a;  /* track matches card background */
+    border-radius: 3px;
+}
+
+.item-card::-webkit-scrollbar-thumb {
+    background-color: #28a745;  /* green thumb */
+    border-radius: 3px;
+    border: 1px solid #1a1a1a;
+}
+
+.item-card::-webkit-scrollbar-thumb:hover {
+    background-color: #218838;  /* darker green on hover */
+}
+
+
 
 .image-slider {
     position: relative;
@@ -175,6 +203,10 @@
 
 .card-details {
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;   
 }
 
 .card-details h3 {
@@ -183,8 +215,36 @@
 }
 
 .card-details p {
-    margin: 5px 0;
+    overflow-y: auto;           /* enable vertical scroll */
+    max-height: 200px;          /* fixed desc height */
+    margin: 0;
+    padding-right: 5px;         /* avoid content under scrollbar */
+
+    /* Custom scrollbar for WebKit (Chrome, Edge, Safari) */
+    scrollbar-width: thin;       /* Firefox */
+    scrollbar-color: #28a745 #222;  /* thumb and track for Firefox */
 }
+
+/* WebKit scrollbar */
+.card-details p::-webkit-scrollbar {
+    width: 6px;                 /* slim scrollbar */
+}
+
+.card-details p::-webkit-scrollbar-track {
+    background: #222;           /* track color */
+    border-radius: 3px;
+}
+
+.card-details p::-webkit-scrollbar-thumb {
+    background-color: #28a745;  /* green thumb */
+    border-radius: 3px;
+    border: 1px solid #222;     /* optional: nice border */
+}
+
+.card-details p::-webkit-scrollbar-thumb:hover {
+    background-color: #218838;  /* darker on hover */
+}
+
 
 .contact-btn {
     padding: 8px 15px;

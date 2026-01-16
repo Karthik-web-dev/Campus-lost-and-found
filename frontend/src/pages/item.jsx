@@ -46,13 +46,16 @@ export default function Post() {
                 socket.emit("new_conversation", {
                     sender_id: user?.id,
                     receiver_id: user2,
-                    conv_id: convId.current
+                    conv_id: convId.current,
+                    post_id: post.id
                 });
 
                 navigate('/chat')
             })
             .catch(err => console.error(err))
     }
+
+    console.log("user: ", user, "author: ", author)
     
     return(
         <div className="page-container">
@@ -72,9 +75,45 @@ export default function Post() {
                 <p><strong>Name: </strong>{author.name}</p>
                 <p><strong>Division: </strong>{author.division}</p>
 
-                <button onClick={() => handleCreateChat(post.user_id)} className="contact-btn">
+                <button 
+                    onClick={() => handleCreateChat(post.user_id)} 
+                    className="contact-btn"
+                    style={{
+                        backgroundColor: post.user_id === user?.id ? '#ccc' : '#28a745',  // Gray if disabled, blue otherwise
+                        color: 'black',
+                        border: 'none',
+                        padding: '10px 20px',
+                        borderRadius: '5px',
+                        fontSize: '16px',
+                        cursor: post.user_id === user?.id ? 'not-allowed' : 'pointer',
+                        transition: 'background-color 0.3s ease',
+                        marginTop: '10px'
+                    }}
+                    disabled={post.user_id === user?.id}  // Optional: Disable the button if it's the user's own post
+                >
                     {post.user_id === user?.id ? "You cannot chat with yourself!": "Chat with them"}
                 </button>
+                
+                {user?.id === author?.id ? (
+                <Link 
+                    to={`/post/edit/${id}`}
+                    style={{
+                    display: 'inline-block',
+                    backgroundColor: '#28a745',  // Green for edit action
+                    color: 'white',
+                    textDecoration: 'none',  // Remove default underline
+                    padding: '10px 20px',
+                    borderRadius: '5px',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    transition: 'background-color 0.3s ease',
+                    marginTop: '10px'
+                    }}
+                >
+                    Edit Post
+                </Link>
+                ) : " "}
                 <br/>
             </section>
         </div>

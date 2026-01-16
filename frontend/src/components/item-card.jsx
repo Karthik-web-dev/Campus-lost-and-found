@@ -18,6 +18,6 @@ export default function ItemCard({item, dateTime, handleCreateChat}) {
                             <br/>
                         </div>
                     </Link>
-                            <button onClick={() => handleCreateChat(item.user_id)} className="contact-btn">Chat</button>
+                            <button onClick={() => handleCreateChat(item.user_id, item.id)} className="contact-btn">Chat</button>
                     </div>)
 }
